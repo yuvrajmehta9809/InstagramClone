@@ -2,6 +2,7 @@ package com.example.instagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,17 +25,19 @@ public class SignUp extends AppCompatActivity {
     TextView tv;
     EditText editText,editName,editKIckSpeed;
     Button getData;
-    String allKickBoxer = " ";
+    String allKickBoxer ;
+    Button btnTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.txtView);
-        editText = findViewById(R.id.editText2);
+       // editText = findViewById(R.id.editText2);
         editName = findViewById(R.id.editName);
         editKIckSpeed = findViewById(R.id.editKickSpeed);
         getData = findViewById(R.id.getData);
+        btnTransition = findViewById(R.id.btnChangeActivity);
 
 
 
@@ -78,25 +81,37 @@ public class SignUp extends AppCompatActivity {
         getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                allKickBoxer = "";
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("KickBoxer");
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
-                        if (e == null) {
+                        if (objects.size() > 0) {
+                            if (e == null) {
 
-                            for (ParseObject parseObject : objects) {
+                                for (ParseObject parseObject : objects) {
 
 
-                                allKickBoxer = allKickBoxer + parseObject.get("name") + "\n";
+                                    allKickBoxer = allKickBoxer + parseObject.get("name") + "\n";
+                                    FancyToast.makeText(SignUp.this, allKickBoxer, FancyToast.LENGTH_LONG,
+                                            FancyToast.INFO, true).show();
+                                }
+
                             }
-
-                        }
+                    }
                     }
                 });
 
 
 
 
+            }
+        });
+        btnTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SignUp.this,SignUpLoginActivity.class);
+                startActivity(i);
             }
         });
     }
