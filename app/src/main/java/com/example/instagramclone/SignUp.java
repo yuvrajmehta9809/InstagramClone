@@ -41,6 +41,7 @@ public class SignUp extends AppCompatActivity {
 
 
 
+// putting data on parse server
 
         tv.setOnClickListener(new View.OnClickListener() {
 
@@ -51,9 +52,14 @@ public class SignUp extends AppCompatActivity {
                 tv.setText("Hi World");
 
                 try {
+                    //using ParsrObject to generate class and object
+
                     ParseObject kickBoxer = new ParseObject("KickBoxer");
                     kickBoxer.put("name",editName.getText().toString());
                     kickBoxer.put("kickspeed",Integer.parseInt(editKIckSpeed.getText().toString()));
+
+                    //saving image in background using SaveCallBack Interface
+
                     kickBoxer.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
@@ -78,16 +84,22 @@ public class SignUp extends AppCompatActivity {
 
 
         });
+
+        // RETRIVING DATA FROM SERVER
         getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 allKickBoxer = "";
+                //GENERATING PARSE QUERY
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("KickBoxer");
+                // FIND IN CALLBACK TO GET ALL OBJECTS AT ONCE
+                //TO GET A PARTICULAR OBJECT USE getInBackground() method
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
                         if (objects.size() > 0) {
                             if (e == null) {
+                                // TOAST MESSAGE FOR NAME OF ALL OBJECTS
 
                                 for (ParseObject parseObject : objects) {
 
