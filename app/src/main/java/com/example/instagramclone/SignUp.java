@@ -54,7 +54,7 @@ EditText edtEmail,edtUserName,edtPassword;
 
         if (ParseUser.getCurrentUser() != null){
 
-            ParseUser.getCurrentUser().logOut();
+            switchActivity();
         }
     }
 
@@ -74,7 +74,7 @@ EditText edtEmail,edtUserName,edtPassword;
                         edtUserName.getText().toString().equals("") ||
                         edtPassword.getText().toString().equals("")) {
 
-                    FancyToast.makeText(SignUp.this, "username,passwordand email are required",
+                    FancyToast.makeText(SignUp.this, "username,password and email are required",
                             FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
                 }
                 else {
@@ -93,6 +93,8 @@ EditText edtEmail,edtUserName,edtPassword;
                         if (e == null) {
                             FancyToast.makeText(SignUp.this, "Signup Successfull",
                                     FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                            switchActivity();
+
                         } else {
                             FancyToast.makeText(SignUp.this, "wrong credentials",
                                     FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
@@ -120,5 +122,11 @@ EditText edtEmail,edtUserName,edtPassword;
 
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    }
+
+    public void switchActivity(){
+
+        Intent i = new Intent(SignUp.this,SocialMediaActivity.class);
+        startActivity(i);
     }
 }

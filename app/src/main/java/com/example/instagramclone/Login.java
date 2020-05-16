@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnSignUp.setOnClickListener(Login.this);
         if(ParseUser.getCurrentUser() != null){
 
-            ParseUser.getCurrentUser().logOut();
+            switchActivity();
         }
     }
 
@@ -75,7 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
                 else {
                    final ProgressDialog  progressDialog = new ProgressDialog(this);
-                    progressDialog.setMessage("please weight");
+                    progressDialog.setMessage("please wait");
                     progressDialog.show();
                 ParseUser.logInInBackground(edtUserName.getText().toString(), edtPassword.getText().toString(),
                         new LogInCallback() {
@@ -84,6 +84,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 if (e == null && user != null) {
                                     FancyToast.makeText(Login.this, "Login Successfull",
                                             FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+
+                                    switchActivity();
                                 } else {
                                     FancyToast.makeText(Login.this, "wrong credentials",
                                             FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
@@ -106,9 +108,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
+    //TO HIDE THE KEYBOARD WHEN EMPTY SCREEN IS TAPPED.
     public void onViewTapped(View view){
 
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    }
+    public void switchActivity(){
+
+        Intent i = new Intent(Login.this,SocialMediaActivity.class);
+        startActivity(i);
     }
 }
