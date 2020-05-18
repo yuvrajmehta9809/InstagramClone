@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SocialMediaActivity"></activity>
+        <activity android:name=".SocialMediaActivity"
+            android:theme="@style/AppTheme.ActionBar"></activity>
         <activity android:name=".Login" />
         <activity android:name=".SignUp">
             <intent-filter>
