@@ -11,12 +11,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 // IMPLEMENT TABLISTENER TO CHANGE TABS BY CLICKING ON THE TABS.
 public class SocialMediaActivity extends AppCompatActivity implements ActionBar.TabListener{
     //DECLARING VARIABLES
@@ -100,8 +103,20 @@ ActionBar.Tab aTab;
         // TO OPEN A TAB WHEN USER CLICK A PARTICULAR TAB.
 
          viewPager.setCurrentItem(tab.getPosition());
+         if(tab.getPosition() !=0){
 
-    }
+             hideKeyboard();
+
+         }
+
+
+
+
+                 }
+
+
+
+
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -112,4 +127,18 @@ ActionBar.Tab aTab;
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
     }
+
+    public void hideKeyboard (){
+
+
+            InputMethodManager inputMethodManager = (InputMethodManager)
+                    getSystemService(INPUT_METHOD_SERVICE);
+
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+
+
+
+
+    }
+
 }

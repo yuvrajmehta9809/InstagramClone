@@ -114,6 +114,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
     }
+
     public void switchActivity(){
 
         Intent i = new Intent(Login.this,SocialMediaActivity.class);
